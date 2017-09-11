@@ -9,6 +9,10 @@
     depth: 1
     update: yes
 
+- name: Update package lists
+  apt: update_cache=yes
+  sudo: yes
+
 - name: Install scons package
   sudo: yes
   apt:
