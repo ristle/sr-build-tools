@@ -113,8 +113,8 @@ RUN rm libudev0_175-0ubuntu9_amd64.deb
 
 # Create the user and checkout it
 ENV STEAM_USER user
-RUN useradd -ms /bin/bash \$STEAM_USER
-RUN usermod -aG sudo \$STEAM_USER
+#RUN useradd -ms /bin/bash \$STEAM_USER
+#RUN usermod -aG sudo \$STEAM_USER
 
 
 RUN echo \$STEAM_USER:root | chpasswd
