@@ -97,8 +97,9 @@ RUN dpkg --add-architecture i386
 RUN add-apt-repository multiverse
 RUN apt-get update
 RUN apt-get dist-upgrade -y
+RUN apt-get install -y steam
+
 RUN apt-get install -y \
-    steam \
     libvulkan1 \
     usbutils
 
