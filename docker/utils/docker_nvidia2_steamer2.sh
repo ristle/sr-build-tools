@@ -109,20 +109,22 @@ RUN apt-get dist-upgrade -y
 RUN cd /home/user
 RUN wget http://mirrors.kernel.org/ubuntu/pool/main/u/udev/libudev0_175-0ubuntu9_amd64.deb
 RUN dpkg -i libudev0_175-0ubuntu9_amd64.deb
+RUN rm libudev0_175-0ubuntu9_amd64.deb
 
 # Create the user and checkout it
-ENV STEAM_USER steam
+ENV STEAM_USER user
 RUN useradd -ms /bin/bash \$STEAM_USER
 RUN usermod -aG sudo \$STEAM_USER
 
 
-RUN echo steam:root | chpasswd
+RUN echo \$STEAM_USER:root | chpasswd
 RUN echo root:root | chpasswd
 USER \$STEAM_USER
 
 # Set the working directory
 ENV WD /home/\$STEAM_USER
 WORKDIR \$WD
+#WORKDIR /home/user
 
 # Create the steam directory and download the SteamCMD into it
 ENV STEAM_DIR steamcmd
