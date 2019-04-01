@@ -124,4 +124,4 @@ RUN cp $STEAM_DIR/linux32/steamclient.so $HIDDEN_DIR" >> Dockerfile
 docker build --tag "$docker_image-steam-nvidia2" .
 
 cd
-rm -rf /tmp/docker_nvidia_tmp
+#rm -rf /tmp/docker_nvidia_tmp
