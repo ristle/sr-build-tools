@@ -99,11 +99,12 @@ RUN dpkg --add-architecture i386
 RUN add-apt-repository multiverse
 RUN apt-get update
 RUN apt-get dist-upgrade -y
-RUN echo \"steam steam/purge note\" |  debconf-set-selections
-RUN echo \"steam steam/license note\" |  debconf-set-selections
-RUN echo \"steam steam/question select I AGREE\" |  debconf-set-selections 
 
-RUN apt-get install -y steam
+#RUN echo \"steam steam/purge note\" |  debconf-set-selections
+#RUN echo \"steam steam/license note\" |  debconf-set-selections
+#RUN echo \"steam steam/question select I AGREE\" |  debconf-set-selections 
+
+#RUN apt-get install -y steam
 
 RUN cd /home/user
 RUN wget http://mirrors.kernel.org/ubuntu/pool/main/u/udev/libudev0_175-0ubuntu9_amd64.deb
