@@ -709,13 +709,13 @@ if [ ${REINSTALL_DOCKER_CONTAINER} = false ] ; then
                         if [[ "$(docker images -q "${DOCKER_IMAGE_NAME}-nvidia" 2> /dev/null)" == "" ]]; then
                             bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/${BUILD_TOOLS_BRANCH}/docker/utils/docker_nvidia2_steamer.sh) ${DOCKER_IMAGE_NAME}
                         fi
-                        DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia"
+                        DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-steam-nvidia2"
                     fi
                     if [ ${NVIDIA_VERSION} = 2 ]; then
                         if [[ "$(docker images -q "${DOCKER_IMAGE_NAME}-nvidia2" 2> /dev/null)" == "" ]]; then
                             bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/${BUILD_TOOLS_BRANCH}/docker/utils/docker_nvidia2_steamer.sh) ${DOCKER_IMAGE_NAME}
                         fi
-                        DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia2"
+                        DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-steam-nvidia2"
                     fi
                 fi
             fi
@@ -769,13 +769,13 @@ else
             if [[ "$(docker images -q "${DOCKER_IMAGE_NAME}-nvidia" 2> /dev/null)" == "" ]]; then
                 bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/${BUILD_TOOLS_BRANCH}/docker/utils/docker_nvidia2_steamer.sh) ${DOCKER_IMAGE_NAME}
             fi
-            DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia"
+            DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-steam-nvidia2"
         fi
         if [ ${NVIDIA_VERSION} = 2 ]; then
             if [[ "$(docker images -q "${DOCKER_IMAGE_NAME}-nvidia2" 2> /dev/null)" == "" ]]; then
                 bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/${BUILD_TOOLS_BRANCH}/docker/utils/docker_nvidia2_steamer.sh) ${DOCKER_IMAGE_NAME}                
             fi
-            DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia2"
+            DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-steam-nvidia2"
         fi
 
     fi
