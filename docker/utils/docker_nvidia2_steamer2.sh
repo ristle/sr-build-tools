@@ -91,17 +91,15 @@ RUN apt-get update && apt-get install -y \
     terminator \
     xdg-utils \
     software-properties-common\
-    sudo
+    sudo \
+    libvulkan1 \
+    usbutils
 
 RUN dpkg --add-architecture i386
 RUN add-apt-repository multiverse
 RUN apt-get update
 RUN apt-get dist-upgrade -y
 RUN apt-get install -y steam
-
-RUN apt-get install -y \
-    libvulkan1 \
-    usbutils
 
 RUN cd /home/user
 RUN wget http://mirrors.kernel.org/ubuntu/pool/main/u/udev/libudev0_175-0ubuntu9_amd64.deb
@@ -141,4 +139,4 @@ USER root" >> Dockerfile
 docker build --tag "$docker_image-steam-nvidia2" .
 
 cd
-#rm -rf /tmp/docker_nvidia_tmp
+rm -rf /tmp/docker_nvidia_tmp
