@@ -119,7 +119,8 @@ RUN \$STEAM_DIR/steamcmd.sh +login anonymous +quit
 # directory
 ENV HIDDEN_DIR \$WD/.steam/sdk32
 RUN mkdir -p \$HIDDEN_DIR
-RUN cp \$STEAM_DIR/linux32/steamclient.so \$HIDDEN_DIR" >> Dockerfile
+RUN cp \$STEAM_DIR/linux32/steamclient.so \$HIDDEN_DIR
+USER root" >> Dockerfile
 
 docker build --tag "$docker_image-steam-nvidia2" .
 
