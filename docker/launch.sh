@@ -227,6 +227,7 @@ fi
 
 HAND_E_NAME="dexterous-hand"
 HAND_H_NAME="flexible-hand"
+TELEOP_NAME="shadow-teleop"
 
 # Check if they have specified the ethercat interface
 if [ -z ${ETHERCAT_INTERFACE} ] ; then
@@ -236,6 +237,10 @@ fi
 
 if echo "${DOCKER_IMAGE_NAME}" | grep -q "${HAND_E_NAME}"; then
     echo "Hand E/G image requested"
+    HAND_H=false
+    HAND_ICON=hand_E.png
+elif echo "${DOCKER_IMAGE_NAME}" | grep -q "${TELEOP_NAME}"; then
+    echo "Teleop requested"
     HAND_H=false
     HAND_ICON=hand_E.png
 elif echo "${DOCKER_IMAGE_NAME}" | grep -q "${HAND_H_NAME}"; then
