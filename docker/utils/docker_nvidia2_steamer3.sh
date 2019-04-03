@@ -139,11 +139,15 @@ RUN \$STEAM_DIR/steamcmd.sh +login anonymous +quit
 # Bugfix, for default when the game server is started, it searches 
 # where the steam client is (for default search in the .steam/sdk32
 # directory
-ENV HIDDEN_DIR \$WD/.steam/sdk32
-RUN mkdir -p \$HIDDEN_DIR
-RUN cp \$STEAM_DIR/linux32/steamclient.so \$HIDDEN_DIR
+ENV HIDDEN_DIR_32 \$WD/.steam/sdk32
+ENV HIDDEN_DIR_64 \$WD/.steam/sdk64
+RUN mkdir -p \$HIDDEN_DIR_32
+RUN mkdir -p \$HIDDEN_DIR_64
+RUN cp \$STEAM_DIR/linux32/steamclient.so \$HIDDEN_DIR_32
+RUN cp \$STEAM_DIR/linux64/steamclient.so \$HIDDEN_DIR_64
 RUN /home/user/steamcmd/./steamcmd.sh +login tom_shadow_software shadowN11LX +force_install_dir /home/user/.steam +app_update 250820 -beta beta validate +quit
-USER root" >> Dockerfile
+USER root
+RUN setcap CAP_SYS_NICE=eip /home/user/.steam/bin/linux64/vrcompositor-launcher" >> Dockerfile
 
 docker build --tag "$docker_image-steam-nvidia2" .
 
