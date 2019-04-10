@@ -9,8 +9,11 @@ mkdir -p /tmp/docker_nvidia_tmp
 #cp /home/shadowop/sr-build-tools/docker/utils/10_nvidia.json /tmp/docker_nvidia_tmp/10_nvidia.json
 cd /tmp/docker_nvidia_tmp
 wget https://raw.githubusercontent.com/shadow-robot/sr-build-tools/containerising_steam_compact/docker/utils/60-HTC-Vive-perms-Ubuntu.rules
+wget https://raw.githubusercontent.com/shadow-robot/sr-build-tools/containerising_steam_compact/docker/utils/99-steam-perms.rules
 sudo cp 60-HTC-Vive-perms-Ubuntu.rules /lib/udev/rules.d
+sudo cp 99-steam-perms.rules /lib/udev/rules.d
 sudo udevadm control --reload-rules && sudo udevadm trigger
+
 echo "{
     \"file_format_version\" : \"1.0.0\",
     \"ICD\" : {
