@@ -25,18 +25,11 @@ touch Dockerfile
 
 echo "FROM $docker_image
 
-#USER root
-
-
 LABEL Description=\"This is updated to use OpenGL with nvidia-docker2\" Vendor=\"Shadow Robot\" Version=\"1.0\"
 
 # Docker GPU access
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
-#RUN su -
-#RUN sudo -i
-#USER root
-# OpenGL using libglvnd
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         make \
@@ -106,31 +99,21 @@ RUN add-apt-repository multiverse
 RUN apt-get update
 RUN apt-get dist-upgrade -y
 
-#RUN echo \"steam steam/purge note\" |  debconf-set-selections
-#RUN echo \"steam steam/license note\" |  debconf-set-selections
-#RUN echo \"steam steam/question select I AGREE\" |  debconf-set-selections 
-
-#RUN apt-get install -y steam
-
 RUN cd /home/user
 RUN wget http://mirrors.kernel.org/ubuntu/pool/main/u/udev/libudev0_175-0ubuntu9_amd64.deb
 RUN dpkg -i libudev0_175-0ubuntu9_amd64.deb
 RUN rm libudev0_175-0ubuntu9_amd64.deb
 
 # Create the user and checkout it
-ENV STEAM_USER user
-#RUN useradd -ms /bin/bash \$STEAM_USER
-#RUN usermod -aG sudo \$STEAM_USER
+ENV USER_NAME user
 
-
-RUN echo \$STEAM_USER:root | chpasswd
+RUN echo \$USER_NAME:root | chpasswd
 RUN echo root:root | chpasswd
-USER \$STEAM_USER
+USER \$USER_NAME
 
 # Set the working directory
-ENV WD /home/\$STEAM_USER
+ENV WD /home/\$USER_NAME
 WORKDIR \$WD
-#WORKDIR /home/user
 
 # Create the steam directory and download the SteamCMD into it
 ENV STEAM_DIR steamcmd
@@ -142,17 +125,19 @@ RUN mkdir -p \$STEAM_DIR && \
 RUN \$STEAM_DIR/steamcmd.sh +login anonymous +quit
 
 
-# Bugfix, for default when the game server is started, it searches 
-# where the steam client is (for default search in the .steam/sdk32
-# directory
+# Bugfix
 ENV HIDDEN_DIR_32 \$WD/.steam/sdk32
 ENV HIDDEN_DIR_64 \$WD/.steam/sdk64
 RUN mkdir -p \$HIDDEN_DIR_32
 RUN mkdir -p \$HIDDEN_DIR_64
 RUN cp \$STEAM_DIR/linux32/steamclient.so \$HIDDEN_DIR_32
 RUN cp \$STEAM_DIR/linux64/steamclient.so \$HIDDEN_DIR_64
+
+# Install SteamVR
 RUN /home/user/steamcmd/./steamcmd.sh +login tom_shadow_software shadow_software +force_install_dir /home/user/.steam +app_update 250820 -beta beta validate +quit
 USER root
+
+#Another bugfix
 RUN setcap CAP_SYS_NICE=eip /home/user/.steam/bin/linux64/vrcompositor-launcher" >> Dockerfile
 
 docker build --tag "$docker_image-steam-nvidia2" .
