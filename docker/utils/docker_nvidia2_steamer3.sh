@@ -151,7 +151,7 @@ RUN mkdir -p \$HIDDEN_DIR_32
 RUN mkdir -p \$HIDDEN_DIR_64
 RUN cp \$STEAM_DIR/linux32/steamclient.so \$HIDDEN_DIR_32
 RUN cp \$STEAM_DIR/linux64/steamclient.so \$HIDDEN_DIR_64
-RUN /home/user/steamcmd/./steamcmd.sh +login tom_shadow_software shadowN11LX +force_install_dir /home/user/.steam +app_update 250820 -beta beta validate +quit
+RUN /home/user/steamcmd/./steamcmd.sh +login tom_shadow_software shadow_software +force_install_dir /home/user/.steam +app_update 250820 -beta beta validate +quit
 USER root
 RUN setcap CAP_SYS_NICE=eip /home/user/.steam/bin/linux64/vrcompositor-launcher" >> Dockerfile
 
