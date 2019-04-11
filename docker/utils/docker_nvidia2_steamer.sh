@@ -25,7 +25,7 @@ touch Dockerfile
 
 echo "FROM $docker_image
 
-LABEL Description=\"This is updated to use OpenGL with nvidia-docker2\" Vendor=\"Shadow Robot\" Version=\"1.0\"
+LABEL Description=\"This is updated to use OpenGL with nvidia-docker2 and steamvr\" Vendor=\"Shadow Robot\" Version=\"1.0\"
 
 # Docker GPU access
 ENV NVIDIA_VISIBLE_DEVICES all
