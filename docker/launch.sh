@@ -708,7 +708,7 @@ if [ ${REINSTALL_DOCKER_CONTAINER} = false ] ; then
                         if [[ "$(docker images -q "${DOCKER_IMAGE_NAME}-nvidia2" 2> /dev/null)" == "" ]]; then
                             bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/${BUILD_TOOLS_BRANCH}/docker/utils/docker2_nvidialize.sh) ${DOCKER_IMAGE_NAME}
                         fi
-                        DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia2"
+                        DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia2-n"
                     fi
                 fi
             fi
@@ -767,7 +767,7 @@ else
             if [[ "$(docker images -q "${DOCKER_IMAGE_NAME}-nvidia2" 2> /dev/null)" == "" ]]; then
                 bash <(curl -Ls https://raw.githubusercontent.com/shadow-robot/sr-build-tools/${BUILD_TOOLS_BRANCH}/docker/utils/docker2_nvidialize.sh) ${DOCKER_IMAGE_NAME}                
             fi
-            DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia2"
+            DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME}-nvidia2-n"
         fi
 
     fi
