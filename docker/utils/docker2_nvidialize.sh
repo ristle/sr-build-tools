@@ -5,7 +5,6 @@ set -e # fail on errors
 docker_image=$1
 
 mkdir -p /tmp/docker_nvidia_tmp
-#cp /home/shadowop/sr-build-tools/docker/utils/10_nvidia.json /tmp/docker_nvidia_tmp/10_nvidia.json
 cd /tmp/docker_nvidia_tmp
 echo "{
     \"file_format_version\" : \"1.0.0\",
@@ -77,7 +76,7 @@ ENV PATH /usr/local/nvidia/bin:${PATH}
 
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}" >> Dockerfile
 
-docker build --tag "$docker_image-nvidia2" .
+docker build --network=host --tag "$docker_image-nvidia2-n" .
 
 cd
 rm -rf /tmp/docker_nvidia_tmp
