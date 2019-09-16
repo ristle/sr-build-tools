@@ -579,6 +579,7 @@ if [ ${DESKTOP_ICON} = true ] ; then
             printf "#! /bin/bash
             source /home/user/projects/shadow_robot/base/devel/setup.bash
             sed -i 's|ethercat_port: .*|ethercat_port: ${ETHERCAT_INTERFACE}|' \$(rospack find fh_config)/hardware/hand_H_hardware.yaml
+            sed -i 's|ethercat_port: .*|ethercat_port: ${ETHERCAT_INTERFACE}|' \$(rospack find fh_config)/hardware/hand_H_and_arm_hardware.yaml
             if [ ! ${OPTOFORCE_BRANCH} = false ]; then
                 cd /home/user/projects/shadow_robot/base/src
                 if [ ! -d "fh_optoforce_config" ]; then
