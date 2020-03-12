@@ -4,8 +4,8 @@ set -e # fail on errors
 #set -x # echo commands run
 
 export package_directory=$1
-export ros_release=${2:-indigo}
-export ubuntu_version_name=${3:-trusty}
+export ros_release=${2:-melodic}
+export ubuntu_version_name=${3:-bionic}
 
 pushd ${package_directory}
 

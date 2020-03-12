@@ -1,2 +1,2 @@
-ros_workspace: "~{{ros_user}}/{{ros_release}}_ws"
+ros_workspace: "~{{ros_user}}/projects/shadow_robot/base"
 ros_group: "ros"

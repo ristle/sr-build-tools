@@ -33,10 +33,10 @@
     chdir={{item}}
   with_items: "{{packages_to_update_by_wstool_stdout_lines|default([])}}"
 
-- name: Update git pull repositories manually before wstool update
-  command: git pull
-    chdir={{item}}
-  with_items: "{{packages_to_update_by_wstool_stdout_lines|default([])}}"
+#- name: Update git pull repositories manually before wstool update
+#  command: git pull
+#    chdir={{item}}
+#  with_items: "{{packages_to_update_by_wstool_stdout_lines|default([])}}"
 
 - name: Check if dependencies file exists
   stat: path={{dependencies_file}}
