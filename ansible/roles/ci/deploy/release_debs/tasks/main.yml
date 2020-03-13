@@ -48,7 +48,7 @@
     state: absent
 
 - name: catkin_make combined workspace
-  shell: catkin_make
+  shell: "source /opt/ros/melodic/setup.bash && catkin_make"
   args:
     chdir: "{{ros_workspace}}"
 
