@@ -1,0 +1,5 @@
+---
+# Defaults check debian packages generation
+
+complete_debian_packages_check: no
+ros_workspace: /home/user/projects/shadow_robot/base
