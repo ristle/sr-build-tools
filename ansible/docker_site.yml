@@ -5,6 +5,7 @@
   vars:
     ros_release: "melodic"
   roles:
+    - {role: ci/deploy/release_debs, when: run_build, tags: ["check_deb_make"]}
     - {role: docker/setup_ui, tags: ["setup_docker_user"]}
     - {role: gazebo_models, tags: ["setup_docker_user"]}
     - {role: docker/ide/pycharm, tags: ["setup_docker_pycharm", "setup_docker_ide"]}
@@ -62,7 +63,6 @@
     - {role: ci/code_style_check/cpp, when: run_build, tags: ["cpp_code_style_check", "code_style_check"]}
     - {role: ci/code_style_check/license, when: run_build, tags: ["check_license"]}
     - {role: ci/deploy/check_install, when: run_build, tags: ["check_install"]}
-    - {role: ci/deploy/release_debs, when: run_build, tags: ["release_debs"]}
     - {role: ci/deploy/build_debs, when: run_build, tags: ["check_deb_make", "complete_deb_check", "upload_debs"]}
     - {role: ci/deploy/complete_deb_check, when: run_build, tags: ["complete_deb_check"]}
     - {role: ci/deploy/check_deb_make, when: run_build, tags: ["check_deb_make", "complete_deb_check", "upload_debs"]}

@@ -2,52 +2,63 @@
 # Release debs
 - name: Remove moveit directory
   file:
-    path: {{ros_workspace}}/src/moveit
+    path: "{{ros_workspace}}/src/moveit"
     state: absent
+
+- name: Check moveit is in wstool
+  shell: "cat .rosinstall | grep moveit | wc -l"
+  args:
+    chdir: "{{ros_workspace}}/src"
+  register: moveit_in_wstool
 
 - name: Remove moveit with wstool
   command: wstool remove moveit
   args:
-    chdir: {{ros_workspace}}/src
+    chdir: "{{ros_workspace}}/src"
+  when: moveit_in_wstool.stdout|int > 0
 
 - name: Install moveit via apt
   apt:
     name: ros-melodic-moveit
     state: present
 
+- name: Check base_deps exists
+  stat:
+    path: "{{ros_workspace}}/../base_deps/src/"
+  register: basedeps
+
 - name: Add base_deps repos to base
   become: yes
-  shell: mv {{ros_workspace}}/../base_deps/src/* {{ros_workspace}}/src/
+  shell: "mv {{ros_workspace}}/../base_deps/src/* {{ros_workspace}}/src/"
+  when: basedeps.stat.exists
 
 - name: Remove base_deps
   file:
-    path: {{ros_workspace}}/../base_deps/
+    path: "{{ros_workspace}}/../base_deps/"
     state: absent
 
 - name: Remove devel directory
   file:
-    path: {{ros_workspace}}/devel
+    path: "{{ros_workspace}}/devel"
     state: absent
 
 - name: Remove build directory
   file:
-    path: {{ros_workspace}}/build
+    path: "{{ros_workspace}}/build"
     state: absent
 
 - name: catkin_make combined workspace
   shell: catkin_make
   args:
-    chdir: {{ros_workspace}}
-
-- include_role:
-    name: check_deb_make
+    chdir: "{{ros_workspace}}"
 
 - name: Make debs dir for output
   file:
-    path: /home/user/debs
+    path: "/home/user/debs"
     state: directory
 
 - name: Copy debs to deb folder, preserving folder structure
   shell: find -name "*.deb" | xargs cp --parents -t /home/user/debs
+  ignore_errors: yes
 
 
