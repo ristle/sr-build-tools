@@ -1,4 +1,3 @@
-	---
 # Playbook for Deb files check
 
 # Redundant loop count to make sure that even complex dependencies scenario is resolved
@@ -10,7 +9,7 @@
   with_nested:
     - "{{workspace_packages_list|default([])}}"
     - "{{workspace_packages_list|default([])}}"
-  until: $(find . -name "*deb" | grep -v ddeb | wc -l) != $(find . -name "obj-x86_64-linux-gnu" | wc -l)
+  until: "$(find {{ros_workspace}}/src -name '*.deb' | grep -v ddeb | wc -l) != $(cat {{ros_workspace}}/src/local_custom_rosdep.yaml | wc -l)"
 
 # In case if there is not errors fakeroot will not create new deb file just exit with 0 else it will print error
 - name: Check if debian build doesn't have any errors

@@ -52,13 +52,13 @@
   args:
     chdir: "{{ros_workspace}}"
 
-- name: Make debs dir for output
-  file:
-    path: "/home/user/debs"
-    state: directory
+#- name: Make debs dir for output
+#  file:
+#    path: "/home/user/debs"
+#    state: directory
 
-- name: Copy debs to deb folder, preserving folder structure
-  shell: find -name "*.deb" | xargs cp --parents -t /home/user/debs
-  ignore_errors: yes
+#- name: Copy debs to deb folder, preserving folder structure
+#  shell: find -name "*.deb" | xargs cp --parents -t /home/user/debs
+#  ignore_errors: yes
 
 
