@@ -50,7 +50,7 @@ RUN set -x && \
     \
     echo "Fetching shadow arm calibration loader " && \
     wget -O /usr/local/bin "$( echo "$shadow_arm_calibration_loader" | sed 's/#/%23/g' )" && \
-    chmod +x /usr/local/bin/shadow_arm_calibration_loader.sh
+    chmod +x /usr/local/bin/shadow_arm_calibration_loader.sh && \
     \
     echo "Setting default terminator config" && \
     mkdir -p /home/$MY_USERNAME/.config/terminator/ && \
