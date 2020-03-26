@@ -24,6 +24,8 @@ ENV remote_shell_script="https://raw.githubusercontent.com/shadow-robot/sr-build
 
 ENV remote_additional_bashrc_cmds="https://raw.githubusercontent.com/shadow-robot/sr-build-tools/$toolset_branch/docker/utils/additional_bashrc_cmds_melodic"
 
+ENV shadow_arm_calibration_loader="https://raw.githubusercontent.com/shadow-robot/sr-build-tools/F_#SRC-4199_arm_calibration_loader/docker/utils/shadow_arm_calibration_loader.sh"
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY terminator_config /tmp/terminator_config
 
@@ -45,6 +47,10 @@ RUN set -x && \
     echo "Updating bash commands" && \
     wget -O /tmp/additional_bashrc_cmds "$( echo "$remote_additional_bashrc_cmds" | sed 's/#/%23/g' )" && \
     cat /tmp/additional_bashrc_cmds >> /home/user/.bashrc && \
+    \
+    echo "Fetching shadow arm calibration loader " && \
+    wget -O /usr/local/bin "$( echo "$shadow_arm_calibration_loader" | sed 's/#/%23/g' )" && \
+    chmod +x /usr/local/bin/shadow_arm_calibration_loader.sh
     \
     echo "Setting default terminator config" && \
     mkdir -p /home/$MY_USERNAME/.config/terminator/ && \

@@ -11,6 +11,8 @@ export HOME=/home/$MY_USERNAME
 
 export OLD_USER_ID=$(id -u $MY_USERNAME)
 
+sh /usr/local/bin/shadow_arm_calibration_loader.sh
+
 if [ $OLD_USER_ID -ne $USER_ID ]
 then
   usermod  --uid $USER_ID $MY_USERNAME
