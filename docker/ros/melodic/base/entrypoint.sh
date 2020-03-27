@@ -11,8 +11,6 @@ export HOME=/home/$MY_USERNAME
 
 export OLD_USER_ID=$(id -u $MY_USERNAME)
 
-sh /usr/local/bin/shadow_arm_calibration_loader.sh
-
 if [ $OLD_USER_ID -ne $USER_ID ]
 then
   usermod  --uid $USER_ID $MY_USERNAME
@@ -37,4 +35,7 @@ ulimit -c unlimited
 echo 1 > /proc/sys/fs/suid_dumpable
 echo /home/$MY_USERNAME/.ros/log/core_dumps/core_BOF_%e_EOF_%p.%h.%t > /proc/sys/kernel/core_pattern
 
+sh /usr/local/bin/shadow_arm_calibration_loader.sh &
+pid=$!
+echo $pid >> /home/user/pid
 exec /usr/local/bin/gosu $MY_USERNAME "$@"
