@@ -35,6 +35,10 @@
 - name: Update rosdep
   shell: bash -c "rosdep update"
 
+- name: Fix rosdep permissions
+  shell: bash -c "rosdep fix-permissions"
+  become: true
+
 - name: Generate ROS debian package files
   script: ../files/generate_ros_debian.sh {{ros_workspace}}/{{item.path}} {{ros_release}} {{ubuntu_version_name}}
   with_items:
