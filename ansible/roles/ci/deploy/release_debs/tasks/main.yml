@@ -37,28 +37,28 @@
     path: "{{ros_workspace}}/../base_deps/"
     state: absent
 
-- name: Remove devel directory
-  file:
-    path: "{{ros_workspace}}/devel"
-    state: absent
-
-- name: Remove build directory
-  file:
-    path: "{{ros_workspace}}/build"
-    state: absent
-
-- name: catkin_make combined workspace
-  shell: "source /opt/ros/melodic/setup.bash && catkin_make"
-  args:
-    chdir: "{{ros_workspace}}"
-
-#- name: Make debs dir for output
+#- name: Remove devel directory
 #  file:
-#    path: "/home/user/debs"
-#    state: directory
+#    path: "{{ros_workspace}}/devel"
+#    state: absent
 
-#- name: Copy debs to deb folder, preserving folder structure
-#  shell: find -name "*.deb" | xargs cp --parents -t /home/user/debs
-#  ignore_errors: yes
+#- name: Remove build directory
+#  file:
+#    path: "{{ros_workspace}}/build"
+#    state: absent
+
+#- name: catkin_make combined workspace
+#  shell: "source /opt/ros/melodic/setup.bash && catkin_make"
+#  args:
+#    chdir: "{{ros_workspace}}"
+
+##- name: Make debs dir for output
+##  file:
+##    path: "/home/user/debs"
+##    state: directory
+#
+##- name: Copy debs to deb folder, preserving folder structure
+##  shell: find -name "*.deb" | xargs cp --parents -t /home/user/debs
+##  ignore_errors: yes
 
 
