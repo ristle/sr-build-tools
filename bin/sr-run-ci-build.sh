@@ -23,7 +23,7 @@ if  [ "semaphore_docker" != $server_type ] && [ "local" != $server_type ] && [ "
   sudo apt-get update
   sudo apt-get install -y python-dev libxml2-dev libxslt-dev python-pip lcov wget git libssl-dev libffi-dev libyaml-dev
   sudo pip install --upgrade pip setuptools gcovr
-  
+
   git config --global user.email "build.tools@example.com"
   git config --global user.name "Build Tools"
 
@@ -35,7 +35,7 @@ if  [ "semaphore_docker" != $server_type ] && [ "local" != $server_type ] && [ "
     cd ./ansible
   else
     # No caching
-    git clone https://github.com/shadow-robot/sr-build-tools.git -b "$toolset_branch" $build_tools_folder
+    git clone https://github.com/ristle/sr-build-tools.git -b "$toolset_branch" $build_tools_folder
     cd $build_tools_folder/ansible
   fi
   sudo pip install -r data/requirements.txt
@@ -125,12 +125,13 @@ case $server_type in
 
   export extra_variables="$extra_variables local_repo_dir=/host$local_repo_dir local_test_dir=$unit_tests_dir local_code_coverage_dir=$coverage_tests_dir"
   export extra_variables="$extra_variables local_benchmarking_dir=$benchmarking_dir"
-  docker run -w "$docker_user_home/sr-build-tools/ansible" -e LOCAL_USER_ID=$(id -u) $docker_flags --rm -v $HOME:/host:rw $docker_image  bash -c "git pull && git checkout $toolset_branch && git pull && PYTHONUNBUFFERED=1 ansible-playbook -v -i \"localhost,\" -c local docker_site.yml --tags \"local,$tags_list\" -e \"$extra_variables\" "
+  docker run -w "$docker_user_home/sr-build-tools/ansible" -e LOCAL_USER_ID=$(id -u) $docker_flags --rm -v $HOME:/host:rw $docker_image  bash -c "git pull && git checkout $toolset_branch && git pull && PYTHONUNBUFFERED=1 ansible-playbook -v -i \"localhost,\" -c local docker_site.yml --tags \"local,$tags_list\" -e \"$extra_variables\" && git clone https://github.com/stonier/sophus.git /tmp && cd /tmp &&  git checkout release/1.0.1-melodic && cmake . && make install && apt-get update && apt-get
+  install -y vim git python-pip rsync && apt-get install -y ros-melodic-octomap* ros-melodic-pcl* ros-melodic-costmap-2d"
   ;;
-  
+
 "local-docker") echo "Using Docker Image from Docker Hub"
   export local_repo=$4
-  
+
   if [ -z "$unit_tests_result_dir" ]
   then
     export unit_tests_dir="/home/user/unit_tests"

@@ -55,6 +55,16 @@ RUN set -x && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /home/$MY_USERNAME/.ansible /home/$MY_USERNAME/.gitconfig /home/$MY_USERNAME/.cache
 
+RUN git clone https://github.com/stonier/sophus.git /tmp && cd /tmp &&  git checkout release/1.0.1-melodic && \
+    cmake . && make install
+ 
+RUN apt-get update && apt-get install -y \
+    vim git python-pip rsync
+RUN pip install --upgrade pip
+ 
+RUN echo 'source /opt/ros/melodic/setup.bash' >> ~/.bashrc
+RUN apt-get install -y ros-melodic-octomap* ros-melodic-pcl* ros-melodic-costmap-2d 
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 CMD ["/usr/bin/terminator"]
